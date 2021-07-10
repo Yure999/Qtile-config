@@ -82,32 +82,37 @@ keys = [
         desc="Spawn a command using a prompt widget"),
 ]
 
-#groups = [Group(i) for i in "123456789"]
+# groups = [Group(i) for i in "123456789"]
+
+# for i in groups:
+#     keys.extend([
+#         Key([mod], i.name, lazy.group[i.name].toscreen()),
+#         Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
+#     ])
 def init_group_names():
-    return [("INIT", {'layout': 'max'}),
-            ("DEV", {'layout': 'max'}),
-            ("WWW", {'layout': 'max'}),
-            ("SYS", {'layout': 'max'}),
-            ("MUS", {'layout': 'max'})]
+   return [("INIT", {'layout': 'max'}),
+           ("DEV", {'layout': 'matrix'}),
+           ("WWW", {'layout': 'max'}),
+           ("SYS", {'layout': 'matrix'}),
+           ("MUS", {'layout': 'matrix'})]
 
 def init_groups():
-    return [Group(name, **kwargs) for name, kwargs in group_names]
+   return [Group(name, **kwargs) for name, kwargs in group_names]
 
 if __name__ in ["config", "__main__"]:
-    group_names = init_group_names()
-    groups = init_groups()
+   group_names = init_group_names()
+   groups = init_groups()
 
 for i, (name, kwargs) in enumerate(group_names, 1):
-    keys.append(Key([mod], str(i), lazy.group[name].toscreen()))
-    keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name)))
+   keys.append(Key([mod], str(i), lazy.group[name].toscreen()))
+   keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name)))
 
 layouts = [
     layout.Columns(border_focus_stack='#d75f5f'),
     layout.Max(),
-    # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
+    layout.Stack(num_stacks=2),
     # layout.Bsp(),
-    # layout.Matrix(),
+    layout.Matrix(),
     # layout.MonadTall(),
     # layout.MonadWide(),
     # layout.RatioTile(),
