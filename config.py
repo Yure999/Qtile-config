@@ -91,10 +91,11 @@ keys = [
 #     ])
 def init_group_names():
    return [("INIT", {'layout': 'max'}),
-           ("DEV", {'layout': 'matrix'}),
+           ("DEV", {'layout': 'columns'}),
            ("WWW", {'layout': 'max'}),
-           ("SYS", {'layout': 'matrix'}),
-           ("MUS", {'layout': 'matrix'})]
+           ("SEC", {'layout': 'columns'}),
+           ("SYS", {'layout': 'columns'}),
+           ("MUS", {'layout': 'columns'})]
 
 def init_groups():
    return [Group(name, **kwargs) for name, kwargs in group_names]
@@ -112,7 +113,7 @@ layouts = [
     layout.Max(),
     layout.Stack(num_stacks=2),
     # layout.Bsp(),
-    layout.Matrix(),
+    #layout.Matrix(),
     # layout.MonadTall(),
     # layout.MonadWide(),
     # layout.RatioTile(),
@@ -124,14 +125,14 @@ layouts = [
 
 widget_defaults = dict(
     font='sans',
-    fontsize=12,
+    fontsize=13,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        bottom=bar.Bar(
+        top=bar.Bar(
             [
                 widget.CurrentLayout(),
                 widget.GroupBox(),
@@ -143,8 +144,7 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                widget.TextBox("default config", name="default"),
-                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                widget.TextBox("Dev config", name="default"),
                 widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
                 widget.QuickExit(),
